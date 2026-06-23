@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { TabType } from './lib/types';
 import { Dashboard } from './components/Dashboard';
-import { Feed } from './components/Feed';
-import { AITerminal } from './components/AITerminal';
-import { Settings } from './components/Settings';
+import { StrategyBuilder } from './components/StrategyBuilder';
+import { DeepDive } from './components/DeepDive';
+import { AllCoins } from './components/AllCoins';
 import { TabNavigation } from './components/TabNavigation';
+
+type TabType = 'dashboard' | 'strategy' | 'deepdive' | 'allcoins';
 
 function AppContent() {
   const [activeTab, setActiveTab] = useState<TabType>('dashboard');
@@ -13,12 +14,12 @@ function AppContent() {
     switch (activeTab) {
       case 'dashboard':
         return <Dashboard />;
-      case 'feed':
-        return <Feed />;
-      case 'terminal':
-        return <AITerminal />;
-      case 'settings':
-        return <Settings />;
+      case 'strategy':
+        return <StrategyBuilder />;
+      case 'deepdive':
+        return <DeepDive />;
+      case 'allcoins':
+        return <AllCoins />;
     }
   };
 

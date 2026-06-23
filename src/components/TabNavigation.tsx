@@ -1,5 +1,6 @@
 import { LayoutDashboard, TrendingUp, Zap, Settings } from 'lucide-react';
-import { TabType } from '../lib/types';
+
+type TabType = 'dashboard' | 'strategy' | 'deepdive' | 'allcoins';
 
 interface TabNavigationProps {
   activeTab: TabType;
@@ -8,9 +9,9 @@ interface TabNavigationProps {
 
 const tabs: { id: TabType; label: string; icon: React.ReactNode }[] = [
   { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard size={24} /> },
-  { id: 'feed', label: 'Feed', icon: <TrendingUp size={24} /> },
-  { id: 'terminal', label: 'AI Terminal', icon: <Zap size={24} /> },
-  { id: 'settings', label: 'Settings', icon: <Settings size={24} /> },
+  { id: 'strategy', label: 'Strategy', icon: <Settings size={24} /> },
+  { id: 'deepdive', label: 'Deep Dive', icon: <Zap size={24} /> },
+  { id: 'allcoins', label: 'All Coins', icon: <TrendingUp size={24} /> },
 ];
 
 export function TabNavigation({ activeTab, onTabChange }: TabNavigationProps) {

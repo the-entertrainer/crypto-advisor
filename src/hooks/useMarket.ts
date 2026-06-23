@@ -1,6 +1,5 @@
 import { useContext } from 'react';
-import { MarketContext } from '../context/MarketContext';
-import { MarketContextType } from '../lib/types';
+import { MarketContext, MarketContextType } from '../context/MarketContext';
 
 export function useMarket(): MarketContextType {
   const context = useContext(MarketContext);
