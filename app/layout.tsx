@@ -39,9 +39,9 @@ export default function RootLayout({
           content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no"
         />
       </head>
-      <body className="bg-zinc-950 text-white">
+      <body className="bg-zinc-950 text-white overflow-hidden">
         <div className="fixed inset-0 overflow-hidden flex flex-col">
-          <main className="flex-1 overflow-y-auto pb-20 pt-safe-top">
+          <main className="flex-1 overflow-y-auto pb-20" style={{ paddingTop: 'env(safe-area-inset-top)' }}>
             {children}
           </main>
           <BottomNavigation />
