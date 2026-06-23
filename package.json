@@ -1,8 +1,11 @@
 {
   "name": "crypto-advisor",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Personal crypto assistant with AI-powered market analysis",
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
