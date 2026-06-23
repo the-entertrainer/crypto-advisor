@@ -19,25 +19,47 @@ export async function analyzeMarket(
   }
 
   try {
-    const prompt = `You are a crypto market analyst. Analyze the following market data and news to provide a trading signal.
+    const prompt = `You are an expert crypto market analyst. Analyze the current market conditions and news to predict which cryptocurrencies will increase in value and which to avoid.
 
-Market Data:
-- Bitcoin: $${marketData.btc_price} (${marketData.btc_change_24h > 0 ? '+' : ''}${marketData.btc_change_24h.toFixed(2)}% 24h)
-- Ethereum: $${marketData.eth_price} (${marketData.eth_change_24h > 0 ? '+' : ''}${marketData.eth_change_24h.toFixed(2)}% 24h)
-- Solana: $${marketData.sol_price} (${marketData.sol_change_24h > 0 ? '+' : ''}${marketData.sol_change_24h.toFixed(2)}% 24h)
+CURRENT MARKET DATA:
+- Bitcoin (BTC): $${marketData.btc_price} (24h: ${marketData.btc_change_24h > 0 ? '+' : ''}${marketData.btc_change_24h.toFixed(2)}%)
+- Ethereum (ETH): $${marketData.eth_price} (24h: ${marketData.eth_change_24h > 0 ? '+' : ''}${marketData.eth_change_24h.toFixed(2)}%)
+- Solana (SOL): $${marketData.sol_price} (24h: ${marketData.sol_change_24h > 0 ? '+' : ''}${marketData.sol_change_24h.toFixed(2)}%)
 
-News & Events:
+MARKET EVENTS & NEWS:
 ${news}
 
-Please provide your analysis in the following JSON format only (no additional text):
+Based on this information, provide a detailed market analysis with specific crypto recommendations.
+
+Respond ONLY with this exact JSON format (no markdown, no extra text):
 {
-  "prediction": "buy" | "sell" | "hold",
-  "confidence": 0-100,
-  "market_signal": "Brief one-line market signal",
-  "reasoning": ["reason 1", "reason 2", "reason 3", "reason 4"]
+  "market_analysis": "3-4 sentence analysis of current market conditions and why",
+  "overall_sentiment": "very_bullish|bullish|neutral|bearish|very_bearish",
+  "confidence": 65-95,
+  "market_events": ["event 1 that affects market", "event 2", "event 3"],
+  "buys": [
+    {
+      "symbol": "BTC",
+      "action": "buy",
+      "reason": "Specific reason based on news/technicals",
+      "potential": "+15-25% in next 2-4 weeks"
+    }
+  ],
+  "avoids": [
+    {
+      "symbol": "SOL",
+      "action": "avoid",
+      "reason": "Specific reason why to stay away",
+      "potential": "-10-20% risk"
+    }
+  ]
 }
 
-Respond ONLY with valid JSON, no markdown or extra text.`;
+Remember:
+- buys should contain cryptos likely to rise soon
+- avoids should contain cryptos with downside risk
+- Be specific about WHY for each recommendation
+- Base decisions on the news/events provided`;
 
     const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
@@ -75,14 +97,37 @@ Respond ONLY with valid JSON, no markdown or extra text.`;
 
 function getMockAnalysis(): Analysis {
   return {
-    prediction: 'hold',
-    confidence: 65,
-    market_signal: 'Market sentiment is mixed. Wait for clearer signals before taking action.',
-    reasoning: [
-      'Bitcoin showing positive momentum with +2.45% 24h gain',
-      'Ethereum ETF approvals provide institutional tailwinds',
-      'Large whale movements detected - potential selling pressure',
-      'Wait for next support level test before confirming trend',
+    market_analysis:
+      'Current market shows strong institutional buying signals with SEC ETF approvals driving positive sentiment. Bitcoin is consolidating at key resistance while Ethereum benefits from protocol upgrades. However, whale movements suggest profit-taking risks in the short term.',
+    overall_sentiment: 'bullish',
+    confidence: 78,
+    market_events: [
+      'SEC Bitcoin ETF approval expanding institutional adoption',
+      'Ethereum Merge 2.0 development update released',
+      '500 BTC whale transfer to unknown wallet detected',
+      'Global regulatory clarity improving for major assets',
+    ],
+    buys: [
+      {
+        symbol: 'BTC',
+        action: 'buy',
+        reason: 'Institutional ETF inflows creating strong support. Breaking above $68,000 targets $72,000+',
+        potential: '+8-12% short-term',
+      },
+      {
+        symbol: 'ETH',
+        action: 'buy',
+        reason: 'Protocol upgrade news + staking rewards + institutional adoption. Technical breakout imminent',
+        potential: '+12-18% next 3 weeks',
+      },
+    ],
+    avoids: [
+      {
+        symbol: 'SOL',
+        action: 'avoid',
+        reason: 'Overbought on technical indicators. Whale accumulation suggests distribution phase starting',
+        potential: '-5-10% correction likely',
+      },
     ],
   };
 }

@@ -19,11 +19,20 @@ export interface FeedItem {
   relatedAssets?: string[];
 }
 
+export interface CryptoRecommendation {
+  symbol: string;
+  action: 'buy' | 'hold' | 'sell' | 'avoid';
+  reason: string;
+  potential: string; // e.g., "+15-20%" or "Stable"
+}
+
 export interface Analysis {
-  prediction: 'buy' | 'sell' | 'hold';
+  market_analysis: string;
+  overall_sentiment: 'very_bullish' | 'bullish' | 'neutral' | 'bearish' | 'very_bearish';
   confidence: number;
-  reasoning: string[];
-  market_signal: string;
+  buys: CryptoRecommendation[];
+  avoids: CryptoRecommendation[];
+  market_events: string[];
 }
 
 export interface MarketContextType {
