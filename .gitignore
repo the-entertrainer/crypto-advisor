@@ -6,13 +6,14 @@
 # Testing
 /coverage
 
-# Next.js
-/.next/
-/out/
-
-# Production
-/build
+# Vite
 /dist
+/.vite
+
+# Environment
+.env
+.env.local
+.env.*.local
 
 # Misc
 .DS_Store
@@ -21,9 +22,6 @@
 *.swp
 *.swo
 *~
-.env
-.env.local
-.env.*.local
 
 # IDE
 .vscode/
@@ -31,5 +29,4 @@
 *.iml
 
 # OS
-.DS_Store
 Thumbs.db

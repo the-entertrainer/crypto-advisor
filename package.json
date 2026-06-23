@@ -2,36 +2,31 @@
   "name": "crypto-advisor",
   "version": "1.0.0",
   "description": "Personal crypto assistant with AI-powered market analysis",
-  "engines": {
-    "node": ">=20.0.0",
-    "npm": ">=10.0.0"
-  },
+  "type": "module",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "lint": "tsc --noEmit"
   },
-  "repository": {
-    "type": "git",
-    "url": "http://local_proxy@127.0.0.1:41729/git/the-entertrainer/crypto-advisor"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "autoprefixer": "^10.5.1",
-    "lucide-react": "^1.21.0",
-    "next": "^16.2.9",
-    "postcss": "^8.5.15",
-    "react": "^19.2.7",
-    "react-dom": "^19.2.7",
-    "tailwindcss": "^4.3.1"
+    "lucide-react": "^0.408.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.1",
-    "@types/node": "26.0.0",
-    "@types/react": "19.2.17",
-    "typescript": "6.0.3"
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@vitejs/plugin-react": "^4.2.0",
+    "autoprefixer": "^10.4.0",
+    "postcss": "^8.4.0",
+    "tailwindcss": "^4.3.1",
+    "terser": "^5.48.0",
+    "typescript": "^5.3.0",
+    "vite": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   }
 }
