@@ -1,34 +1,34 @@
 import { useState } from 'react';
+import { DataProvider, useData } from './context/DataContext';
 import { Dashboard } from './components/Dashboard';
-import { StrategyBuilder } from './components/StrategyBuilder';
-import { DeepDive } from './components/DeepDive';
-import { AllCoins } from './components/AllCoins';
-import { TabNavigation } from './components/TabNavigation';
-
-type TabType = 'dashboard' | 'strategy' | 'deepdive' | 'allcoins';
+import { Scanner } from './components/Scanner';
+import { Settings } from './components/Settings';
+import { TabNav, type Tab } from './components/TabNav';
+import { CoinSheet } from './components/CoinSheet';
 
 function AppContent() {
-  const [activeTab, setActiveTab] = useState<TabType>('dashboard');
-
-  const renderTab = () => {
-    switch (activeTab) {
-      case 'dashboard':
-        return <Dashboard />;
-      case 'strategy':
-        return <StrategyBuilder />;
-      case 'deepdive':
-        return <DeepDive />;
-      case 'allcoins':
-        return <AllCoins />;
-    }
-  };
+  const [tab, setTab] = useState<Tab>('home');
+  const { selected, select } = useData();
 
   return (
-    <div className="fixed inset-0 overflow-hidden flex flex-col">
-      <main className="flex-1 overflow-hidden">{renderTab()}</main>
-      <TabNavigation activeTab={activeTab} onTabChange={setActiveTab} />
+    <div className="fixed inset-0 bg-black">
+      {tab === 'home' && <Dashboard />}
+      {tab === 'scan' && <Scanner />}
+      {tab === 'settings' && <Settings />}
+
+      <TabNav active={tab} onChange={setTab} />
+
+      {selected && (
+        <CoinSheet insight={selected} onClose={() => select(null)} />
+      )}
     </div>
   );
 }
 
-export default AppContent;
+export default function App() {
+  return (
+    <DataProvider>
+      <AppContent />
+    </DataProvider>
+  );
+}

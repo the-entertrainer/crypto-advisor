@@ -1,24 +1,16 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState } from 'react';
+import { DataProvider, useData } from './context/DataContext';
 import { Dashboard } from './components/Dashboard';
-import { StrategyBuilder } from './components/StrategyBuilder';
-import { DeepDive } from './components/DeepDive';
-import { AllCoins } from './components/AllCoins';
-import { TabNavigation } from './components/TabNavigation';
+import { Scanner } from './components/Scanner';
+import { Settings } from './components/Settings';
+import { TabNav } from './components/TabNav';
+import { CoinSheet } from './components/CoinSheet';
 function AppContent() {
-    const [activeTab, setActiveTab] = useState('dashboard');
-    const renderTab = () => {
-        switch (activeTab) {
-            case 'dashboard':
-                return _jsx(Dashboard, {});
-            case 'strategy':
-                return _jsx(StrategyBuilder, {});
-            case 'deepdive':
-                return _jsx(DeepDive, {});
-            case 'allcoins':
-                return _jsx(AllCoins, {});
-        }
-    };
-    return (_jsxs("div", { className: "fixed inset-0 overflow-hidden flex flex-col", children: [_jsx("main", { className: "flex-1 overflow-hidden", children: renderTab() }), _jsx(TabNavigation, { activeTab: activeTab, onTabChange: setActiveTab })] }));
+    const [tab, setTab] = useState('home');
+    const { selected, select } = useData();
+    return (_jsxs("div", { className: "fixed inset-0 bg-black", children: [tab === 'home' && _jsx(Dashboard, {}), tab === 'scan' && _jsx(Scanner, {}), tab === 'settings' && _jsx(Settings, {}), _jsx(TabNav, { active: tab, onChange: setTab }), selected && (_jsx(CoinSheet, { insight: selected, onClose: () => select(null) }))] }));
 }
-export default AppContent;
+export default function App() {
+    return (_jsx(DataProvider, { children: _jsx(AppContent, {}) }));
+}
